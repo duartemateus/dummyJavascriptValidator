@@ -1,4 +1,4 @@
-var validateObject = validateInput(2, "a");
+var validateObject = validateInput(4, "2.");
 console.log(validateObject.Message());
 
 function validateInput(type, value) {
@@ -36,20 +36,21 @@ function validateInput(type, value) {
 }
 
 function validateInt(value) {
-  var string = value.toString();
-  var n = string.search(/^[-+]?\d+$/);
-  return n > -1
+	return regexValidator(/^[-+]?\d+$/, value);
 }
 
 function validateMonetary(value) {
-  var string = value.toString();
-  var n = string.search(/^\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$/);
-  return n > -1
+  return regexValidator(/^\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$/,
+	value);
 }
 
 function validateFloat(value) {
+  return regexValidator(/^[-+]?(\d+(\.|(\.\d+)))$/, value);
+}
+
+function regexValidator(regex, value) {
   var string = value.toString();
-  var n = string.search(/^-?(\d+(\.|(\.\d+)))$/);
+  var n = string.search(regex);
   return n > -1
 }
 
